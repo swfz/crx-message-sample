@@ -6,13 +6,13 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
     if (req.from === 'subscriber') {
       subscriberTabId = req.tabId;
     }
-    if (req.from === 'stream') {
+    if (req.from === 'streamer') {
       streamTabId = req.tabId;
     }
   }
 
   if (req.command === 'SendSubscribedComments') {
-    console.log(streamTabId);
+    console.log('streamTabId', streamTabId);
     chrome.tabs.sendMessage(streamTabId, {command: req.command, comments: req.comments})
     chrome.tabs.sendMessage(subscriberTabId, {command: 'debug subscriber', comments: req.comments})
   }

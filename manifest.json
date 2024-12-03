@@ -13,7 +13,7 @@
       "js": ["contents_script/subscriber.ts"]
     },
     {
-      "matches": ["https://example.com/"],
+      "matches": ["https://example.com/", "https://docs.google.com/presentation/d/*/edit"],
       "match_about_blank": true,
       "js": ["contents_script/streamer.ts"]
     }

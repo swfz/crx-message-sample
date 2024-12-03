@@ -12,7 +12,7 @@ function App() {
     }
 
     chrome.tabs.sendMessage(tab.id, { command: 'Load', platform: 'zoom', tabId: tab.id }, (res) => {
-      console.log(res);
+      console.log('popup', res);
     });
   }
 
