@@ -8,7 +8,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://app.slack.com/client/*"],
+      "matches": ["https://app.slack.com/client/*", "https://app.zoom.us/wc/*"],
       "match_about_blank": true,
       "js": ["contents_script/subscriber.ts"]
     },

@@ -11,7 +11,7 @@ function App() {
       return;
     }
 
-    chrome.tabs.sendMessage(tab.id, { command: 'Load', platform: 'slack', tabId: tab.id }, (res) => {
+    chrome.tabs.sendMessage(tab.id, { command: 'Load', platform: 'zoom', tabId: tab.id }, (res) => {
       console.log(res);
     });
   }

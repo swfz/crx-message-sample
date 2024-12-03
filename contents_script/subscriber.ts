@@ -19,16 +19,16 @@ const selectors = {
 }
 
 const subscribeComments = (platform, observeElement, sendResponse) => {
-  const broadcastChannel = new BroadcastChannel('comment_channel');
-
   const extractComment = (mutationRecords: MutationRecord[]): string[] => {
     console.warn(mutationRecords);
     const nodes = mutationRecords
       .filter((record) => {
         const element = record.target as Element;
 
-        // return element.className === selectors[platform].commentNodeClassName && element['data-item-key'] != 'input';
-        return element['data-item-key'] != 'input';
+        // zoom
+        return element.className === selectors[platform].commentNodeClassName;
+        // slack
+        // return element['data-item-key'] != 'input';
       })
       .map((record) => record.addedNodes[0]);
 
@@ -46,8 +46,6 @@ const subscribeComments = (platform, observeElement, sendResponse) => {
 
   const observer = new MutationObserver(function (records) {
     chrome.runtime.sendMessage({command: 'SendSubscribedComments', comments: extractComment(records)})
-
-    // broadcastChannel.postMessage(extractComment(records));
   });
 
   observer.observe(observeElement, { subtree: true, childList: true });
@@ -62,7 +60,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.warn('platform',platform);
     console.warn(message);
   
-    const observeElement = document.querySelector<HTMLDivElement>(selectors[platform].listNodeSelector);
+    // slack
+    // const observeElement = document.querySelector<HTMLDivElement>(selectors[platform].listNodeSelector);
+    // zoom
+    const observeElement = document.querySelector('.pwa-webclient__iframe')?.contentWindow.document.querySelector(selectors[platform].listNodeSelector)
   
     console.warn(observeElement);
   
